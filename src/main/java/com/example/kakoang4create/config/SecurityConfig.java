@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,10 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 
 @Configuration
@@ -51,7 +56,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-       http.csrf().disable()
+       http.cors().configurationSource(new CorsConfigurationSource() {
+                   @Override
+                   public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                       CorsConfiguration config = new CorsConfiguration();
+                       config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                       config.setAllowedMethods(Collections.singletonList("*"));
+                        config.setAllowCredentials(true);
+                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setMaxAge(3600L);
+
+                       return config;
+                   }
+               }).and()
+               .csrf().disable()
                .authorizeHttpRequests()
                .requestMatchers("/login").authenticated()
                 .anyRequest().permitAll()
