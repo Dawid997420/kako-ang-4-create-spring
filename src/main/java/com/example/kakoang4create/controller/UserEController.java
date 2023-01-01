@@ -3,7 +3,6 @@ package com.example.kakoang4create.controller;
 import com.example.kakoang4create.model.UserE;
 import com.example.kakoang4create.repository.UserERepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,25 +30,44 @@ public class UserEController {
         return userERepository.findAll();
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping
-    public void registerUser(@RequestBody UserE userE) {
+    public ResponseEntity<Boolean> registerUser(@RequestBody UserE userE) {
 
-        if ( userERepository.findByUsername(userE.getUsername()).size() > 0) {
+        if ( userERepository.findByEmail(userE.getEmail()).size() > 0) {
 
 
 
+            return ResponseEntity.ok(false);
 
         } else {
 
             String passwordToSave = passwordEncoder.encode(userE.getPassword());
 
-            UserE userEToSave = new UserE(userE.getUsername(),passwordToSave);
+            UserE userEToSave = new UserE(userE.getEmail(),passwordToSave);
+
+            userEToSave.setUsername(userE.getUsername());
+            userEToSave.setBirthday(userE.getBirthday());
+            userEToSave.setSex(userE.getSex());
+
+
+            userEToSave.setRole("USER");
 
             userERepository.save(userEToSave);
 
+
+
+            return ResponseEntity.ok(true);
         }
 
+
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable String id) {
+
+        userERepository.deleteById(id);
 
     }
 

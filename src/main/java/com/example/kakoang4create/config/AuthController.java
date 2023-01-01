@@ -1,8 +1,8 @@
 package com.example.kakoang4create.config;
 
 import com.example.kakoang4create.model.UserE;
+import com.example.kakoang4create.model.UserELogin;
 import com.example.kakoang4create.service.TokenService;
-import org.apache.el.parser.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger logger= LoggerFactory.getLogger(AuthController.class);
 
 
     @Autowired
@@ -28,11 +28,11 @@ public class AuthController {
 
 
     @PostMapping("/token")
-    public String token(@RequestBody UserE userE) {
+    public String token(@RequestBody UserELogin userE) {
 
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userE.getUsername(),userE.getPassword()));
+                new UsernamePasswordAuthenticationToken(userE.getEmail(),userE.getPassword()));
 
 
         String token = tokenService.generateToken(authentication);

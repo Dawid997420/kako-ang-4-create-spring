@@ -27,10 +27,11 @@ public class LoginService implements UserDetailsService {
     private PasswordEncoder passwordEncoder ;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
 
-        List<UserE> usersMatches = userERepository.findByUsername(username);
+       
+        List<UserE> usersMatches = userERepository.findByEmail(email);
 
         if (  usersMatches.size() > 0 ) {
 
@@ -40,7 +41,7 @@ public class LoginService implements UserDetailsService {
 
             UserE userToCheck = usersMatches.get(0);
 
-            return new User(userToCheck.getUsername(),
+            return new User(userToCheck.getEmail(),
                  userToCheck.getPassword(),collection);
         } else {
 
