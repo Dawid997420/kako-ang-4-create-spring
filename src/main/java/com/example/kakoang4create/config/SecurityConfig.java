@@ -72,7 +72,7 @@ public class SecurityConfig {
                }).and()
                .csrf().disable()
                .authorizeHttpRequests()
-               .requestMatchers("/login").authenticated()
+               .requestMatchers("/login","/checkToken").authenticated()
                 .anyRequest().permitAll()
                .and().oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -70,5 +71,16 @@ public class UserEController {
         userERepository.deleteById(id);
 
     }
+
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserE> userInfo(Principal principal) {
+
+        System.out.println(principal.getName());
+
+        return ResponseEntity.ok().build();
+
+    }
+
 
 }
