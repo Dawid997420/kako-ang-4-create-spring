@@ -1,6 +1,7 @@
 package com.example.kakoang4create.controller;
 
 import com.example.kakoang4create.model.Article;
+import com.example.kakoang4create.model.TypePar;
 import com.example.kakoang4create.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class ArticleController {
     private ArticleRepository articleRepository;
 
 
+
+
     @GetMapping
     public ResponseEntity<List<Article>> getAllArticles() {
 
@@ -34,6 +37,18 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<Article> addArticle(@RequestBody Article article) {
 
+        article.getParagraphs().stream().map( paragraph ->  {
+            if ( String.valueOf( paragraph.getType()).equalsIgnoreCase("font-plain")) {
+                   paragraph.setType(TypePar.plain);
+            } else if( String.valueOf( paragraph.getType()) == "font-bold") {
+                    paragraph.setType(TypePar.bold);
+            }  else if( String.valueOf( paragraph.getType()) == "font-subtitle") {
+                    paragraph.setType(TypePar.subtitle);
+            }
+        return paragraph ;
+        });
+
+
         article.setComments(new ArrayList<>());
         return ResponseEntity.ok(articleRepository.save(article));
     }
@@ -45,6 +60,15 @@ public class ArticleController {
         articleRepository.deleteById(id);
 
     }
+
+    @DeleteMapping
+    public void deleteAllArticles() {
+
+        articleRepository.deleteAll();
+    }
+
+
+
 
 
 }

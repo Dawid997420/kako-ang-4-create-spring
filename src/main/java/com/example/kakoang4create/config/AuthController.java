@@ -41,11 +41,6 @@ public class AuthController {
     }
 
 
-    @GetMapping("/checkToken")
-    public ResponseEntity<Boolean> isTokenCorrect() {
-
-        return ResponseEntity.ok(true);
-    }
 
 
 

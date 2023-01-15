@@ -76,9 +76,13 @@ public class UserEController {
     @GetMapping("/profile")
     public ResponseEntity<UserE> userInfo(Principal principal) {
 
-        System.out.println(principal.getName());
 
-        return ResponseEntity.ok().build();
+
+        UserE userInfo = userERepository.findByEmail(principal.getName()).get(0);
+
+
+
+        return ResponseEntity.ok(userInfo);
 
     }
 

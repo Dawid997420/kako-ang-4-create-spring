@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -14,13 +15,16 @@ public class Article {
     private String id ;
 
     private String topic ;
-    private String text ;
 
+    private List<Paragraph> paragraphs;
+
+    private List<Category> categories;
+
+    private Date created;
 
     private List<Comment> comments;
 
     private UserE author;
-
 
 
 }
