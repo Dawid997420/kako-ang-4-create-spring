@@ -70,21 +70,16 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/topic/")
-    public ResponseEntity<Article> getArticleFromTopic(@RequestParam Map<String,String> allRequestParams) {
+    @GetMapping("/topic/{topic}")
+    public ResponseEntity<Article> getArticleFromTopic(@PathVariable String topic) {
 
-        StringBuffer  topic= new StringBuffer(allRequestParams.toString());
-        topic.deleteCharAt(topic.length()-1);
-        topic.deleteCharAt(0);
 
-        if (  topic.toString().endsWith("=") ) {
-         
-          topic.deleteCharAt(topic.length()-1);
 
-        }
-        System.out.println(topic);
+        Article articleFind = articleService.findByTopic(topic);
 
-       return ResponseEntity.ok(articleService.findByTopic(allRequestParams.toString()));
+
+
+       return ResponseEntity.ok(articleFind);
 
     }
 

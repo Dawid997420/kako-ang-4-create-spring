@@ -18,10 +18,25 @@ public class ArticleService {
 
         List<Article> articleList = articleRepository.findAll();
         Article foundArticle = new Article();
+        String topicToCheck = "";
 
         for ( int i =0 ; i < articleList.size() ; i++ ) {
 
-            if ( articleList.get(i).getTopic().equals(topic) ) {
+
+            topicToCheck = articleList.get(i).getTopic().replace("?","");
+            topicToCheck = topicToCheck.replace(" ","-");
+            topicToCheck = topicToCheck.replace("ł","l");
+            topicToCheck = topicToCheck.replace("ą","a");
+            topicToCheck = topicToCheck.replace("ó","o");
+            topicToCheck = topicToCheck.replace("ę","e");
+            topicToCheck = topicToCheck.replace("ć","c");
+            topicToCheck = topicToCheck.replace("ń","n");
+            topicToCheck = topicToCheck.replace("ź","z");
+            topicToCheck = topicToCheck.replace("ż","z");
+            topicToCheck = topicToCheck.replace("ś","s");
+
+
+            if ( topicToCheck.equals(topic) ) {
 
                 foundArticle = articleList.get(i);
                 break;
