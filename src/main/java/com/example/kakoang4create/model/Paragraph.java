@@ -12,10 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Paragraph {
 
 
-
+    @Id
+    private String id ;
     private String text ;
     private TypePar type;
 
+    private String articleId;
 
 }
 
