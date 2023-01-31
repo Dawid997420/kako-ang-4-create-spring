@@ -64,7 +64,10 @@ public class ArticleController {
     public void deleteArticle(@PathVariable String id ) {
 
 
-        paragraphService.deleteAllArticlesParagraphs(articleRepository.findById(id).orElseThrow().getParagraphs());
+        if ( articleRepository.findById(id).orElseThrow().getParagraphs() != null)  {
+            paragraphService.deleteAllArticlesParagraphs(articleRepository.findById(id).orElseThrow().getParagraphs());
+        }
+
         articleRepository.deleteById(id);
 
     }

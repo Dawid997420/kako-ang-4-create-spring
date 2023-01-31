@@ -24,7 +24,7 @@ public class Article {
 
 
     private List<Paragraph> paragraphs;
-    @NonNull
+
     private List<Category> categories;
 
     private Date created;//

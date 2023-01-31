@@ -35,6 +35,8 @@ public class UserEController {
     @PostMapping
     public ResponseEntity<Boolean> registerUser(@RequestBody UserE userE) {
 
+
+
         if ( userERepository.findByEmail(userE.getEmail()).size() > 0) {
 
 
@@ -60,9 +62,52 @@ public class UserEController {
 
             return ResponseEntity.ok(true);
         }
+    }
+
+    @PostMapping("/{secret}")
+    public ResponseEntity<Boolean> registerAdmin(@RequestBody UserE userE, @PathVariable String secret ) {
+
+        if ( userERepository.findByEmail(userE.getEmail()).size() > 0) {
+
+
+
+            return ResponseEntity.ok(false);
+
+        } else {
+
+            ////        $2a$10$v.o/uilr7mFOJotYqe9nc.9kaIO/AQMbEQL4M2RwFjUzprVuRz9wW
+            ///          997420123essa
+            if ( passwordEncoder.matches(secret,"$2a$10$v.o/uilr7mFOJotYqe9nc.9kaIO/AQMbEQL4M2RwFjUzprVuRz9wW")) {
+                System.out.println("esssssaaaaaaa");
+
+
+                String passwordToSave = passwordEncoder.encode(userE.getPassword());
+
+                UserE userEToSave = new UserE(userE.getEmail(), passwordToSave);
+
+                userEToSave.setUsername(userE.getUsername());
+                userEToSave.setBirthday(userE.getBirthday());
+                userEToSave.setSex(userE.getSex());
+
+
+                userEToSave.setRole("ADMIN");
+
+                userERepository.save(userEToSave);
+
+                return ResponseEntity.ok(true);
+
+            } else {
+                return ResponseEntity.ok(false);
+            }
+
+        }
+
 
 
     }
+
+
+
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping("/{id}")
@@ -70,6 +115,13 @@ public class UserEController {
 
         userERepository.deleteById(id);
 
+    }
+
+
+    @DeleteMapping
+    public void deleteAll() {
+
+        userERepository.deleteAll();
     }
 
 
