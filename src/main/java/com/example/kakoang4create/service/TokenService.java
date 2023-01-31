@@ -28,7 +28,7 @@ public class TokenService {
 
         if (authentication.getAuthorities().iterator().next().equals(new SimpleGrantedAuthority("ADMIN"))) {
              timeToLogin= 24;
-        }
+        }//
 
         Instant now = Instant.now();
 
