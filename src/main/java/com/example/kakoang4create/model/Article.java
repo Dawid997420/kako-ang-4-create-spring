@@ -27,7 +27,7 @@ public class Article {
     @NonNull
     private List<Category> categories;
 
-    private Date created;
+    private Date created;//
 
     private List<Comment> comments;
 
