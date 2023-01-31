@@ -27,13 +27,15 @@ public class ParagraphService {
 
         }).toList();*/
 
-        for ( int i = 0 ; i < paragraphList.size() ; i++) {
+        if ( paragraphList != null) {
 
-            paragraphList.get(i).setArticleId(article.getId());
+            for (int i = 0; i < paragraphList.size(); i++) {
+
+                paragraphList.get(i).setArticleId(article.getId());
 
 
+            }
         }
-
 
 
       return  paragraphList;
@@ -46,12 +48,13 @@ public class ParagraphService {
 
         paragraphListToSave = setArticleId(paragraphList,article );
 
+                    if (paragraphList != null) {
+                                for (int i = 0; i < paragraphList.size(); i++) {
 
-        for ( int i = 0 ; i < paragraphList.size() ; i++) {
+                                    paragraphRepostiory.save(paragraphListToSave.get(i));
 
-            paragraphRepostiory.save(paragraphListToSave.get(i));
-
-        }
+                                }
+                    }
     }
 
 

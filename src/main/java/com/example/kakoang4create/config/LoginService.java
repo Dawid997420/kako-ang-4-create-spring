@@ -37,7 +37,8 @@ public class LoginService implements UserDetailsService {
 
             Collection<GrantedAuthority> collection = new ArrayList<>();
 
-            collection.add(new SimpleGrantedAuthority("USER"));
+
+            collection.add(new SimpleGrantedAuthority(usersMatches.get(0).getRole()));
 
             UserE userToCheck = usersMatches.get(0);
 
