@@ -24,6 +24,13 @@ public class UserEController {
     private PasswordEncoder passwordEncoder;
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserE> getUserById(@PathVariable String id) {
+
+        return ResponseEntity.ok(userERepository.findById(id).orElseThrow());
+
+    }
+
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping
     public List<UserE> getUsers() {

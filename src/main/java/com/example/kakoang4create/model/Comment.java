@@ -13,9 +13,12 @@ public class Comment {
 
     private String text ;
 
-    private UserE author;
 
-    private Article article;
+    private String username;
+
+    private String userId;
+
+    private String articleId;
 
 
 
