@@ -6,7 +6,9 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Document
@@ -27,10 +29,17 @@ public class UserE {
 
     private Date birthday ;
 
+
+    private List<Article> articleList;
+
+    private List<Comment> commentList ;
+
     private String role ;
     public UserE(String email,String password ) {
         this.email = email ;
         this.password = password ;
+        this.setCommentList(new ArrayList<>());
+        this.setArticleList(new ArrayList<>());
 
     }
 

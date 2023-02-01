@@ -24,6 +24,13 @@ public class UserEController {
     private PasswordEncoder passwordEncoder;
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserE> getUserById(@PathVariable String id) {
+
+        return ResponseEntity.ok(userERepository.findById(id).orElseThrow());
+
+    }
+
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping
     public List<UserE> getUsers() {
@@ -76,7 +83,7 @@ public class UserEController {
         } else {
 
             ////        $2a$10$v.o/uilr7mFOJotYqe9nc.9kaIO/AQMbEQL4M2RwFjUzprVuRz9wW
-            ///          997420123essa
+            ////          997420123essa
             if ( passwordEncoder.matches(secret,"$2a$10$v.o/uilr7mFOJotYqe9nc.9kaIO/AQMbEQL4M2RwFjUzprVuRz9wW")) {
                 System.out.println("esssssaaaaaaa");
 
