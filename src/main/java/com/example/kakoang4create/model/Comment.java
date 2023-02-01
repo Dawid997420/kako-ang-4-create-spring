@@ -11,7 +11,7 @@ public class Comment {
     @Id
     private String id ;
 
-    private String text ;//
+    private String text ;
 
 
     private String username;
