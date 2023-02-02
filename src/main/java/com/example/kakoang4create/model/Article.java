@@ -31,7 +31,7 @@ public class Article {
 
     private List<Comment> comments;
 
-    private UserE author;
+    private String userId;
 
 
 }
