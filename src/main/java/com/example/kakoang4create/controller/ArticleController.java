@@ -55,7 +55,6 @@ public class ArticleController {
 
        articleRepository.save(article);
 
-
         return ResponseEntity.ok(article);
     }
 
