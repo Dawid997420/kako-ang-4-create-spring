@@ -30,6 +30,8 @@ public class UserE {
     private Date birthday ;
 
 
+    private String image ;
+
     private List<Article> articleList;
 
     private List<Comment> commentList ;

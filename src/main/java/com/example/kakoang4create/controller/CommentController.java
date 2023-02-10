@@ -3,6 +3,7 @@ package com.example.kakoang4create.controller;
 
 import com.example.kakoang4create.model.Article;
 import com.example.kakoang4create.model.Comment;
+import com.example.kakoang4create.model.CommentArticle;
 import com.example.kakoang4create.model.UserE;
 import com.example.kakoang4create.repository.ArticleRepository;
 import com.example.kakoang4create.repository.CommentRepository;
@@ -116,6 +117,41 @@ public class CommentController {
         commentService.deleteAllCommentsFromUsers();
         commentService.deleteAllCommentsFromArticles();
 
+    }
+
+
+    @PostMapping("/article")
+    public ResponseEntity<List<CommentArticle>> returnCommentsArticle(@RequestBody List<Comment> commentList)
+    {
+
+        List<CommentArticle> commentArticleList = new ArrayList<>();
+
+
+
+
+        for ( int i = 0 ; i < commentList.size() ; i++) {
+
+
+
+            CommentArticle commentArticleToAdd = new CommentArticle(commentList.get(i).getId(),
+                    commentList.get(i).getUsername(),commentList.get(i).getText(),
+                    commentList.get(i).getArticleId(),commentList.get(i).getUserId());
+
+            UserE userE = userERepository.findById(commentArticleToAdd.getUserId()).orElseThrow();
+
+            commentArticleToAdd.setImage(userE.getImage());
+
+
+            commentArticleList.add(commentArticleToAdd);
+
+
+
+        }
+
+
+
+
+        return ResponseEntity.ok(commentArticleList);
     }
 
 

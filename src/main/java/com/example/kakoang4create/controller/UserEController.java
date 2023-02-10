@@ -2,6 +2,7 @@ package com.example.kakoang4create.controller;
 
 import com.example.kakoang4create.model.UserE;
 import com.example.kakoang4create.repository.UserERepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,13 @@ public class UserEController {
 
         return ResponseEntity.ok(userERepository.findById(id).orElseThrow());
 
+    }
+
+    @PutMapping
+    public ResponseEntity<UserE> changeUserImg (@RequestBody UserE userE) {
+
+        userERepository.save(userE);
+        return  ResponseEntity.ok(userE);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -113,6 +121,17 @@ public class UserEController {
 
     }
 
+
+    @PatchMapping("/{role}")
+    public ResponseEntity<UserE> changeRoleToUser(@RequestBody UserE userE ,@PathVariable String role) {
+
+
+
+        userE.setRole(role);
+
+        userERepository.save(userE);
+        return ResponseEntity.ok(userE);
+    }
 
 
 
